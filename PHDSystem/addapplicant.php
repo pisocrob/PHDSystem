@@ -1,5 +1,5 @@
 <html>
-
+<!--All database calls moved to model.php-->
 <link rel="stylesheet" type="text/css" href="style.css">
 <div id="navbar">
 <ul>
@@ -11,6 +11,7 @@
 </ul>
 </div>
 <div id="bodydiv">
+
 <form action="http://localhost/PHDSystem/applicantadded.php" method="post">
 
 <b>Add a New Applicant</b>
@@ -42,12 +43,14 @@
 </div>
 </form>
 
-
+<!--Ignore the changes made here, the final version is in addapplicant.php in Mini's view folder-->
 <div id="lowerbody">
 <?php
 
 require_once('C:\xampp\htdocs\PHDsystem\mysqli_connect.php');
-require_once('C:\xampp\htdocs\mini\application\model');
+require_once('C:\xampp\htdocs\mini\application\model.php');
+
+
 
 getAllApplicants();
 

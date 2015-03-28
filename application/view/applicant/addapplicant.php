@@ -11,7 +11,7 @@
 </ul>
 </div>
 <div id="bodydiv">
-<form action="http://localhost/PHDSystem/applicantadded.php" method="post">
+<form action="http://localhost/PHDSystem/application/view/applicant/applicantadded.php" method="post">
 
 <b>Add a New Applicant</b>
 
@@ -46,8 +46,8 @@
 <div id="lowerbody">
 <?php
 
-require_once('C:\xampp\htdocs\mini\application\config\config.php');
-require_once('C:\xampp\htdocs\mini\application\model\model.php');
+require_once('C:\xampp\htdocs\PHDSystem\application\config\config.php');
+require_once('C:\xampp\htdocs\PHDSystem\application\model\model.php');
 
 getAllApplicants();
 
