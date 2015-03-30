@@ -49,8 +49,6 @@
 require_once('C:\xampp\htdocs\PHDSystem\application\config\config.php');
 require_once('C:\xampp\htdocs\PHDSystem\application\model\model.php');
 
-getAllApplicants();
-
 ?>
 </div>
 </body>

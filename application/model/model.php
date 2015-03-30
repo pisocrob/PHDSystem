@@ -23,6 +23,8 @@ public function getAllApplicants() {
 
 $response = @mysqli_query($dbc, $query);
 
+//These echos need splitting off into the view
+
 if($response){
 
 echo '</br></br></br><table align="left" cellspacing="5" cellpadding="8"><tr>
@@ -56,6 +58,41 @@ echo mysqli_error($dbc);
 }
 
 mysqli_close($dbc);
+}
+
+public function AddApplicant() {
+    $query = "INSERT INTO Applicant (id, fname, lname, cv, passport)
+                              VALUES (?, ?, ?, ?, ?)";
+
+        $stmt = mysqli_prepare($dbc, $query);
+
+
+
+        mysqli_stmt_bind_param($stmt, "sssss", $id, $fname, $lname,
+                               $cv, $passport);
+
+        mysqli_stmt_execute($stmt);
+
+        $affected_rows = mysqli_stmt_affected_rows($stmt);
+
+        if($affected_rows == 1){
+
+            echo 'Applicant Added';
+
+            mysqli_stmt_close($stmt);
+
+            mysqli_close($dbc);
+
+        } else {
+
+            echo 'Error Occurred<br />';
+            echo mysqli_error();
+
+            mysqli_stmt_close($stmt);
+
+            mysqli_close($dbc);
+
+        }
 }
 
 
