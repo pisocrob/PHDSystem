@@ -60,7 +60,7 @@ echo mysqli_error($dbc);
 mysqli_close($dbc);
 }
 
-public function AddApplicant() {
+public function addApplicant($id, $fname, $lname, $cv, $passport) {
     $query = "INSERT INTO Applicant (id, fname, lname, cv, passport)
                               VALUES (?, ?, ?, ?, ?)";
 
@@ -93,6 +93,17 @@ public function AddApplicant() {
             mysqli_close($dbc);
 
         }
+        } else {
+
+        echo 'You need to enter the following data<br />';
+
+        foreach($data_missing as $missing){
+
+            echo "$missing<br />";
+
+        }
+
+    }
 }
 
 

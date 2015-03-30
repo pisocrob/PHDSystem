@@ -22,4 +22,11 @@ class AddApplicant extends controller {
 		//header('location: ' . URL . 'applicant/index.php');
 
 	}
+
+	public function addApplicant() {
+		if (isset($_POST["submit"])) {
+            $this->model->addApplicant($_POST["id"], $_POST["fname"],  $_POST["lname"], $_POST["cv"], $_POST["passport"]);
+	}
+	//return to the add applicant page
+	header('location: ' . URL . 'applicant/addApplicant');
 }
