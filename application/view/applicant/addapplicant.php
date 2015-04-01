@@ -2,6 +2,7 @@
 
 <link rel="stylesheet" type="text/css" href="style.css">
 
+<div class="box">
 <form action="<?php echo URL; ?>addapplicant/xxaddapplicant" method="POST">
 
 <b>Add a New Applicant</b>

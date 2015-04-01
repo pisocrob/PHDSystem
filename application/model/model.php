@@ -19,46 +19,13 @@ class Model
  */
 
 public function getAllApplicants() {
-    $query = "SELECT id, fname, lname, cv, passport FROM Applicant";
+    $sql = "SELECT applicantid, fname, lname, cvpath, passportpath FROM Applicant";
+    $query = $this->db->prepare($sql);
+    $query->execute();
 
-$response = @mysqli_query($dbc, $query);
-
-//These echos need splitting off into the view
-
-if($response){
-
-echo '</br></br></br><table align="left" cellspacing="5" cellpadding="8"><tr>
-<td align="left"><b>id</b></td>
-<td align="left"><b>fname</b></td>
-<td align="left"><b>lname</b></td>
-<td align="left"><b>cv</b></td>
-<td align="left"><b>passport</b></td></tr>';
-
-
-while($row = mysqli_fetch_array($response)){
-
-echo '<tr><td align="left">' .
-$row['id'] . ' - </td><td align="left">' .
-$row['fname'] . ' - </td><td align="left">' .
-$row['lname'] . ' - </td><td align="left">' .
-$row['cv'] . ' - </td><td align="left">' .
-$row['passport'] . ' - </td><td align="left">';
-
-echo '</tr>';
+    return $query->fetchAll();
 }
 
-echo '</table>';
-
-} else {
-
-echo "Couldn't issue database query<br />";
-
-echo mysqli_error($dbc);
-
-}
-
-mysqli_close($dbc);
-}
 
 public function addApplicant($applicantid, $fname, $lname, $cvpath, $passportpath) {
     $sql = "INSERT INTO applicant (applicantid, fname, lname, cvpath, passportpath) VALUES (:id, :fname, :lname, :cv, :passport)";
@@ -68,6 +35,20 @@ public function addApplicant($applicantid, $fname, $lname, $cvpath, $passportpat
 
     //debugging line
    // echo '[ PDO DEBUG ]: ' . Helper::debugPDO($sql, $parameters);  exit();
+}
+
+public function deleteapplicant($applicantid) {
+    $sql = "DELETE FROM applicant WHERE applicantid = :applicantid";
+    $query = $this->db->prepare($sql);
+    $parameters = array(':applicantid' => $applicantid);
+
+    $query->execute($parameters);
+    //debugging line
+   echo '[ PDO DEBUG ]: ' . Helper::debugPDO($sql, $parameters);  exit();
+}
+
+public function editapplicant() {
+    //TODO: add parameters and do SQL query
 }
 
 
