@@ -28,9 +28,10 @@ public function getAllApplicants() {
 
 
 public function addApplicant($applicantid, $fname, $lname, $cvpath, $passportpath) {
-    $sql = "INSERT INTO applicant (applicantid, fname, lname, cvpath, passportpath) VALUES (:id, :fname, :lname, :cv, :passport)";
+    //TODO: JQuery field checking
+    $sql = "INSERT INTO applicant (applicantid, fname, lname, cvpath, passportpath) VALUES (:applicantid, :fname, :lname, :cv, :passport)";
     $query = $this->db->prepare($sql);
-    $parameters = array(':id' => $applicantid, ':fname' => $fname, ':lname' => $lname, ':cv' => $cvpath, ':passport' => $passportpath);
+    $parameters = array(':applicantid' => $applicantid, ':fname' => $fname, ':lname' => $lname, ':cv' => $cvpath, ':passport' => $passportpath);
     $query->execute($parameters);
 
     //debugging line
@@ -38,6 +39,7 @@ public function addApplicant($applicantid, $fname, $lname, $cvpath, $passportpat
 }
 
 public function deleteapplicant($applicantid) {
+    //TODO: Make this work
     $sql = "DELETE FROM applicant WHERE applicantid = :applicantid";
     $query = $this->db->prepare($sql);
     $parameters = array(':applicantid' => $applicantid);
@@ -47,8 +49,11 @@ public function deleteapplicant($applicantid) {
    echo '[ PDO DEBUG ]: ' . Helper::debugPDO($sql, $parameters);  exit();
 }
 
-public function editapplicant() {
-    //TODO: add parameters and do SQL query
+public function editapplicant($applicantid, $fname, $lname, $cvpath, $passportpath) {
+    $sql = "UPDATE applicant SET applicantid = :applicantid, fname = :fname, lname = :lname, cvpath = :cvpath, passportpath = :passportpath ";
+    $query = $this->db->prepare($sql);
+    $parameters = array(':applicantid' => $applicantid, ':fname' => $fname, ':lname' => $lname, ':cv' => $cvpath, ':passport' => $passportpath);
+    $query->execute($parameters);
 }
 
 
