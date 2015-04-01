@@ -60,50 +60,14 @@ echo mysqli_error($dbc);
 mysqli_close($dbc);
 }
 
-public function addApplicant($id, $fname, $lname, $cv, $passport) {
-    $query = "INSERT INTO Applicant (id, fname, lname, cv, passport)
-                              VALUES (?, ?, ?, ?, ?)";
+public function addApplicant($applicantid, $fname, $lname, $cvpath, $passportpath) {
+    $sql = "INSERT INTO applicant (applicantid, fname, lname, cvpath, passportpath) VALUES (:id, :fname, :lname, :cv, :passport)";
+    $query = $this->db->prepare($sql);
+    $parameters = array(':id' => $applicantid, ':fname' => $fname, ':lname' => $lname, ':cv' => $cvpath, ':passport' => $passportpath);
+    $query->execute($parameters);
 
-        $stmt = mysqli_prepare($dbc, $query);
-
-
-
-        mysqli_stmt_bind_param($stmt, "sssss", $id, $fname, $lname,
-                               $cv, $passport);
-
-        mysqli_stmt_execute($stmt);
-
-        $affected_rows = mysqli_stmt_affected_rows($stmt);
-
-        if($affected_rows == 1){
-
-            echo 'Applicant Added';
-
-            mysqli_stmt_close($stmt);
-
-            mysqli_close($dbc);
-
-        } else {
-
-            echo 'Error Occurred<br />';
-            echo mysqli_error();
-
-            mysqli_stmt_close($stmt);
-
-            mysqli_close($dbc);
-
-        }
-        } else {
-
-        echo 'You need to enter the following data<br />';
-
-        foreach($data_missing as $missing){
-
-            echo "$missing<br />";
-
-        }
-
-    }
+    //debugging line
+   // echo '[ PDO DEBUG ]: ' . Helper::debugPDO($sql, $parameters);  exit();
 }
 
 

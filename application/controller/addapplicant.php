@@ -9,8 +9,8 @@ class AddApplicant extends controller {
 		maybe we should write an index file?
 		*/
 
-		require require APP . 'view/_templates/header.php';
-        require APP . 'view/applicant/AddApplicant.php';
+		require APP . 'view/_templates/header.php';
+        require APP . 'view/applicant/addapplicant.php';
         require APP . 'view/_templates/footer.php';
 	}
 
@@ -23,10 +23,11 @@ class AddApplicant extends controller {
 
 	}
 
-	public function addApplicant() {
+	public function xxaddApplicant() {
 		if (isset($_POST["submit"])) {
             $this->model->addApplicant($_POST["id"], $_POST["fname"],  $_POST["lname"], $_POST["cv"], $_POST["passport"]);
+		}
+	//go to applicant added page??
+	header('location: ' . URL . 'addapplicant/index');
 	}
-	//return to the add applicant page
-	header('location: ' . URL . 'applicant/addApplicant');
 }

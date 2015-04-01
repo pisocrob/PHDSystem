@@ -1,17 +1,8 @@
 <html>
 
 <link rel="stylesheet" type="text/css" href="style.css">
-<div id="navbar">
-<ul>
-  <li><a href="index.php">Login</a></li>
-  <li><a href="catalogue.php">Search Submissions</a></li>
-  <li><a href="addapplicant.php">Add an Applicant</a></li>
-  <li><a href="addsupervisor.php">Add a Supervisor</a></li>
-  <li><a href="addsubmission.php">Add a Submission</a></li>
-</ul>
-</div>
-<div id="bodydiv">
-<form action="http://localhost/PHDSystem/application/view/applicant/applicantadded.php" method="post">
+
+<form action="<?php echo URL; ?>addapplicant/xxaddapplicant" method="POST">
 
 <b>Add a New Applicant</b>
 
@@ -44,14 +35,6 @@
 
 
 <div id="lowerbody">
-<?php
-
-//require_once('C:\xampp\htdocs\PHDSystem\application\config\config.php');
-require_once('C:\xampp\htdocs\PHDSystem\application\controller\addapplicant.php');
-
-getAllApplicants();
-
-?>
 </div>
 </body>
 </html>
