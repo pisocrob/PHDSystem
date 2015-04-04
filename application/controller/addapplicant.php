@@ -2,6 +2,7 @@
 
 class AddApplicant extends controller {
 
+//PARTH: TEST THIS
 	public function index() {
 
 		/*
@@ -16,6 +17,7 @@ class AddApplicant extends controller {
         require APP . 'view/_templates/footer.php';
 	}
 
+//PARTH: TEST THIS
 	public function getAllApplicants() {
 
 		$applicants = $this->model->getAllApplicants();
@@ -29,6 +31,7 @@ class AddApplicant extends controller {
 
 	}
 
+//PARTH: TEST THIS
 	public function xxaddApplicant() {
       
 
@@ -36,6 +39,7 @@ class AddApplicant extends controller {
 		header('location: ' . URL . 'addapplicant/index');
 		}
 
+//PARTH: TEST THIS
 	public function deleteapplicant() {
 		if(isset($applicantid)) {
 			$this->model->deleteapplicant($applicantid);
@@ -43,6 +47,7 @@ class AddApplicant extends controller {
 		header('location: ' . APP . 'view/applicant/Applicantadded.php');
 	}
 
+//PARTH: TEST THIS
 	public function editapplicant() {
 //TODO: This method and relevant form
 	}

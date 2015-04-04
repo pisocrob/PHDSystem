@@ -18,6 +18,7 @@ class Model
  *MY METHODS START HERE:
  */
 
+//PARTH: TEST THIS
 public function getAllApplicants() {
     $sql = "SELECT applicantid, fname, lname, cvpath, passportpath FROM Applicant";
     $query = $this->db->prepare($sql);
@@ -26,7 +27,7 @@ public function getAllApplicants() {
     return $query->fetchAll();
 }
 
-
+//PARTH: TEST THIS
 public function addApplicant($applicantid, $fname, $lname, $cvpath, $passportpath) {
     //TODO: JQuery field checking
     $sql = "INSERT INTO applicant (applicantid, fname, lname, cvpath, passportpath) VALUES (:applicantid, :fname, :lname, :cv, :passport)";
@@ -38,6 +39,7 @@ public function addApplicant($applicantid, $fname, $lname, $cvpath, $passportpat
    // echo '[ PDO DEBUG ]: ' . Helper::debugPDO($sql, $parameters);  exit();
 }
 
+//PARTH: TEST THIS
 public function deleteapplicant($applicantid) {
     //TODO: Make this work
     $sql = "DELETE FROM applicant WHERE applicantid = :applicantid";
@@ -49,6 +51,7 @@ public function deleteapplicant($applicantid) {
    echo '[ PDO DEBUG ]: ' . Helper::debugPDO($sql, $parameters);  exit();
 }
 
+//PARTH: TEST THIS
 public function editapplicant($applicantid, $fname, $lname, $cvpath, $passportpath) {
     $sql = "UPDATE applicant SET applicantid = :applicantid, fname = :fname, lname = :lname, cvpath = :cvpath, passportpath = :passportpath ";
     $query = $this->db->prepare($sql);
