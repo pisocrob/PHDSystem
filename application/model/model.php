@@ -59,6 +59,19 @@ public function editapplicant($applicantid, $fname, $lname, $cvpath, $passportpa
     $query->execute($parameters);
 }
 
+public function checkloginregistar($userName, $password){
+    $sql = "SELECT * from registrar WHERE userName=:userName AND password=:password";
+    $query = $this->db->prepare($sql);
+    $parameters = array(':userName' => $userName, ':password' => $password);
+    $query execute($parameters);
+}
+
+public function checkloginsupervisor($userName, $password){
+    $sql = "SELECT * from registrar WHERE userName=:userName AND password=:password";
+    $query = $this->db->prepare($sql);
+    $parameters = array(':userName' => $userName, ':password' => $password);
+    $query execute($parameters);
+}
 
 
 

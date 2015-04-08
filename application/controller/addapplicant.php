@@ -33,9 +33,7 @@ class AddApplicant extends controller {
 
 //PARTH: TEST THIS
 	public function xxaddApplicant() {
-      
-
-		$this->model->addApplicant($_POST["id"], $_POST["fname"],  $_POST["lname"], $_POST["cv"], $_POST["passport"]);
+      		$this->model->addApplicant($_POST["id"], $_POST["fname"],  $_POST["lname"], $_POST["cv"], $_POST["passport"]);
 		header('location: ' . URL . 'addapplicant/index');
 		}
 
@@ -49,6 +47,9 @@ class AddApplicant extends controller {
 
 //PARTH: TEST THIS
 	public function editapplicant() {
-//TODO: This method and relevant form
+		if (isset($_POST["submit_update_applicant"])) {
+			$this->model->editapplicant($_POST["applicantid"], $_POST["fname"], $_POST["lname"], $_POST["cvpath"], $_POST["passportpath"]);
+		}
+		header('location: ' . APP . 'view/applicant/Applicantadded.php');
 	}
-	}
+}
