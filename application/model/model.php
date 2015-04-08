@@ -64,6 +64,8 @@ public function checkloginregistar($userName, $password){
     $query = $this->db->prepare($sql);
     $parameters = array(':userName' => $userName, ':password' => $password);
     $query execute($parameters);
+
+    return $query->fetchAll();
 }
 
 public function checkloginsupervisor($userName, $password){
@@ -71,6 +73,8 @@ public function checkloginsupervisor($userName, $password){
     $query = $this->db->prepare($sql);
     $parameters = array(':userName' => $userName, ':password' => $password);
     $query execute($parameters);
+
+    return $query->fetchAll();
 }
 
 
