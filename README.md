@@ -1,16 +1,11 @@
 # Current state
-Application pages working. Edit and delete methods added, need to write the calls for these.
-Login view and controller exist. NEXT STEP: do the appropriate checks when methods are called based on session data.
-
-NB: This login is insecure and sketchy, only designed to demonstrate usage.
+Currently not in a running state. Mid re-factor
 
 # Model
-Still using a single file for all functions. Might split them off at the end.
+Currently consists of only one file which contains all re-factored database calls. May split this into various files if it seems more practical.
 
 # View
-Working inside Mini's headers and footers and using Mini's buttons - needs AJAX implementing
-Needs merging with Matt's work for the split view files
+As far as the files that I have been working on are concerned, I think more may need to be removed from them. Need intergrating with Mini's example layout if we want to use that.
 
 # Controller
-addapplicant controller almost fully functional. Needs renaming
-login controller exists, needs testing.
+Next push will see individual controller files added for the applicant pages I have been working on.

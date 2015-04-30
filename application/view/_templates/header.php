@@ -22,7 +22,9 @@
     <!-- navigation -->
     <div class="navigation">
         <a href="<?php echo URL; ?>">home</a>
-        <a href="<?php echo URL; ?>addapplicant/index">Add Applicant</a>
-        <a href="<?php echo URL; ?>addapplicant/getallapplicants">View Applicants</a>
-        <a href="<?php echo URL; ?>songs">songs</a>
+        <a href="<?php echo URL; ?>supervisor/getAllSupervisors">Supervisors</a>
+        <a href="<?php echo URL; ?>applicant/getallapplicants">Applicants</a>
+        <a href="<?php echo URL; ?>submission/getAllSubmissions">Submissions</a>
+        <a href="<?php echo URL; ?>Interest">Interest</a>
+
     </div>

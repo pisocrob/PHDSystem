@@ -1,4 +1,4 @@
-<?php
+<?php session_start();
 
 /**
  * Class Home
@@ -10,41 +10,59 @@
  */
 class Home extends Controller
 {
-    /**
-     * PAGE: index
-     * This method handles what happens when you move to http://yourproject/home/index (which is the default page btw)
-     */
+    
+
+    
+
     public function index()
     {
+        
         // load views
         require APP . 'view/_templates/header.php';
-        require APP . 'view/home/index.php';
+        require APP . 'view/home/login.php';
         require APP . 'view/_templates/footer.php';
     }
 
-    /**
-     * PAGE: exampleone
-     * This method handles what happens when you move to http://yourproject/home/exampleone
-     * The camelCase writing is just for better readability. The method name is case-insensitive.
-     */
-    public function exampleOne()
-    {
-        // load views
-        require APP . 'view/_templates/header.php';
-        require APP . 'view/home/example_one.php';
-        require APP . 'view/_templates/footer.php';
+    public function checkRegCredentials() {
+        if(isset($_POST["submit_login"])){
+            $credentials = $this->model->getRegCredentials($_POST["userName"], $_POST["password"]);
+            if (sizeof($credentials) > 0){
+
+                $_SESSION['SESS_ID'] = $_POST['userName'];
+                $_SESSION['SESS_USER'] = $_POST['userName'];
+                $_SESSION['USER_TYPE'] = $_POST['userName'];
+                
+                require APP . 'view/_templates/header.php';
+                require APP . 'view/home/index.php';
+                require APP . 'view/_templates/footer.php';
+            }
+            else {
+                require APP . 'view/_templates/header.php';
+                require APP . 'view/home/login.php';
+                require APP . 'view/_templates/footer.php';
+                echo "User name or password was incorrect";
+            }
+        }
     }
 
-    /**
-     * PAGE: exampletwo
-     * This method handles what happens when you move to http://yourproject/home/exampletwo
-     * The camelCase writing is just for better readability. The method name is case-insensitive.
-     */
-    public function exampleTwo()
-    {
-        // load views
-        require APP . 'view/_templates/header.php';
-        require APP . 'view/home/example_two.php';
-        require APP . 'view/_templates/footer.php';
+    public function checkSupCredentials() {
+        if(isset($_POST["submit_login"])){
+            $credentials = $this->model->getSupCredentials($_POST["userName"], $_POST["password"]);
+            if (sizeof($credentials) > 0){
+                    $_SESSION['SESS_ID'] = 'supervisor';
+                    $_SESSION['SESS_USER'] = $_POST['userName'];
+                    $_SESSION['USER_TYPE'] = 'supervisor';
+                    
+                    require APP . 'view/_templates/header.php';
+                    require APP . 'view/home/index.php';
+                    require APP . 'view/_templates/footer.php'; 
+            }
+            else {
+                require APP . 'view/_templates/header.php';
+                require APP . 'view/home/login.php';
+                require APP . 'view/_templates/footer.php';
+                echo "User name or password was incorrect";
+            }
+        }
     }
 }

@@ -18,30 +18,33 @@ class Model
  *MY METHODS START HERE:
  */
 
-//PARTH: TEST THIS
-public function getAllApplicants() {
-    $sql = "SELECT applicantid, fname, lname, cvpath, passportpath FROM Applicant";
-    $query = $this->db->prepare($sql);
-    $query->execute();
 
+
+public function getAllApplicants($searchApplicant) {
+    $sql = "SELECT applicantid, fname, lname, qualifications, cvpath, passportpath, email FROM Applicant WHERE fName LIKE (:searchApplicant)";
+    $query = $this->db->prepare($sql);
+    $parameters = array(':searchApplicant' => $searchApplicant);
+
+    $query->execute($parameters);
     return $query->fetchAll();
+
 }
 
-//PARTH: TEST THIS
-public function addApplicant($applicantid, $fname, $lname, $cvpath, $passportpath) {
-    //TODO: JQuery field checking
-    $sql = "INSERT INTO applicant (applicantid, fname, lname, cvpath, passportpath) VALUES (:applicantid, :fname, :lname, :cv, :passport)";
+
+public function addApplicant($fname, $lname, $email, $qualifications, $cvpath, $passportpath) {
+    $sql = "INSERT INTO applicant (fname, lname, email, qualifications, cvpath, passportpath)
+    VALUES (:fname, :lname, :email, :qualifications, :cv, :passport)";
     $query = $this->db->prepare($sql);
-    $parameters = array(':applicantid' => $applicantid, ':fname' => $fname, ':lname' => $lname, ':cv' => $cvpath, ':passport' => $passportpath);
+
+    $parameters = array(':fname' => $fname, ':lname' => $lname, ':email' => $email,
+    ':qualifications' => $qualifications, ':cv' => $cvpath, ':passport' => $passportpath);
     $query->execute($parameters);
 
     //debugging line
    // echo '[ PDO DEBUG ]: ' . Helper::debugPDO($sql, $parameters);  exit();
 }
 
-//PARTH: TEST THIS
 public function deleteapplicant($applicantid) {
-    //TODO: Make this work
     $sql = "DELETE FROM applicant WHERE applicantid = :applicantid";
     $query = $this->db->prepare($sql);
     $parameters = array(':applicantid' => $applicantid);
@@ -51,34 +54,125 @@ public function deleteapplicant($applicantid) {
    echo '[ PDO DEBUG ]: ' . Helper::debugPDO($sql, $parameters);  exit();
 }
 
-//PARTH: TEST THIS
-public function editapplicant($applicantid, $fname, $lname, $cvpath, $passportpath) {
-    $sql = "UPDATE applicant SET applicantid = :applicantid, fname = :fname, lname = :lname, cvpath = :cvpath, passportpath = :passportpath ";
+public function editapplicant() {
+    //TODO: add parameters and do SQL query
+}
+
+
+/**
+ *MATT'S SUBMISSION METHODS START HERE:
+ */
+
+public function getAllSubmissions($searchSubmission) {
+    $sql = "SELECT submissionID, title, dicipline1, dicipline2, dicipline3,
+    abstaract, fullProposalPath, submissionDate, allocationDate, applicantID,
+    active FROM Submission WHERE title LIKE (:searchSubmission)";
     $query = $this->db->prepare($sql);
-    $parameters = array(':applicantid' => $applicantid, ':fname' => $fname, ':lname' => $lname, ':cv' => $cvpath, ':passport' => $passportpath);
+    $parameters = array(':searchSubmission' => $searchSubmission);
     $query->execute($parameters);
-}
-
-public function checkloginregistar($userName, $password){
-    $sql = "SELECT * from registrar WHERE userName=:userName AND password=:password";
-    $query = $this->db->prepare($sql);
-    $parameters = array(':userName' => $userName, ':password' => $password);
-    $query execute($parameters);
-
-    return $query->fetchAll();
-}
-
-public function checkloginsupervisor($userName, $password){
-    $sql = "SELECT * from registrar WHERE userName=:userName AND password=:password";
-    $query = $this->db->prepare($sql);
-    $parameters = array(':userName' => $userName, ':password' => $password);
-    $query execute($parameters);
 
     return $query->fetchAll();
 }
 
 
+public function addSubmission($submissionID, $title, $dicipline1,
+    $dicipline2, $dicipline3, $abstaract, $fullProposalPath, $submissionDate,
+    $allocationDate, $applicantId) {
+    $sql = "INSERT INTO Submission (submissionID, title, dicipline1,
+      dicipline2, dicipline3, abstaract, fullProposalPath, submissionDate,
+      allocationDate, applicantId)
+      VALUES (:submissionID, :title, :dicipline1, :dicipline2, :dicipline3,
+      :abstaract, :fullProposalPath, :submissionDate, :allocationDate,
+      :applicantId)";
 
+    $query = $this->db->prepare($sql);
+    $parameters = array(':submissionID' => $submissionID, ':title' => $title,
+    ':dicipline1' => $dicipline1, ':dicipline2' => $dicipline2,
+    ':dicipline3' => $dicipline3, ':abstaract' => $abstaract,
+    ':fullProposalPath' => $fullProposalPath, ':submissionDate' => $submissionDate,
+    ':allocationDate' => $allocationDate, ':applicantId' => $applicantId);
+
+    $query->execute($parameters);
+
+    //debugging line
+   // echo '[ PDO DEBUG ]: ' . Helper::debugPDO($sql, $parameters);  exit();
+}
+
+public function deleteSubmissions($submissionID) {
+    $sql = "DELETE FROM Submission WHERE submissionID = :submissionID";
+    $query = $this->db->prepare($sql);
+    $parameters = array(':submissionID' => $submissionID);
+
+    $query->execute($parameters);
+    //debugging line
+   echo '[ PDO DEBUG ]: ' . Helper::debugPDO($sql, $parameters);  exit();
+}
+
+public function editSubmissions() {
+    //TODO: add parameters and do SQL query
+}
+
+/**
+ *MATT'S SUPERVISOR METHODS START HERE:
+ */
+
+
+public function getAllSupervisors($searchSupervisor) {
+    $sql = "SELECT userName, staffNo, password, email, fName, lName, email, sDicipline1, sDicipline2, sDicipline3 FROM Supervisor WHERE lName LIKE (:searchSupervisor)";
+    $query = $this->db->prepare($sql);
+    $parameters = array(':searchSupervisor' => $searchSupervisor);
+    $query->execute($parameters);
+
+    return $query->fetchAll();
+}
+
+
+public function addSupervisor($userName, $staffNo, $password, $email, $fName, $lName, $sDicipline1, $sDicipline2, $sDicipline3) {
+    $sql = "INSERT INTO Supervisor (userName, staffNo, password, email, fName,
+    lName, sDicipline1, sDicipline2, sDicipline3)
+    VALUES (:userName, :staffNo, :password, :email, :fName, :lName,
+    :sDicipline1, :sDicipline2, :sDicipline3)";
+    $query = $this->db->prepare($sql);
+    $parameters = array(':userName' => $userName, ':staffNo' => $staffNo, ':password' => $password,
+    ':email' => $email, ':fName' => $fName, ':lName' => $lName, ':sDicipline1' => $sDicipline1,
+    ':sDicipline2' => $sDicipline2, ':sDicipline3' => $sDicipline3);
+    $query->execute($parameters);
+
+    //debugging line
+   // echo '[ PDO DEBUG ]: ' . Helper::debugPDO($sql, $parameters);  exit();
+}
+
+public function deleteSupervisor($userName) {
+    $sql = "DELETE FROM Supervisor WHERE userName = :userName";
+    $query = $this->db->prepare($sql);
+    $parameters = array(':userName' => $userName);
+
+    $query->execute($parameters);
+    //debugging line
+   echo '[ PDO DEBUG ]: ' . Helper::debugPDO($sql, $parameters);  exit();
+}
+
+public function editSupervisor() {
+    //TODO: add parameters and do SQL query
+}
+
+public function getRegCredentials($userName, $password){
+    $sql = "SELECT username, password from registrar WHERE username=:userName AND password=:password";
+    $query = $this->db->prepare($sql);
+    $parameters = array(':userName' => $userName, ':password' => $password);
+    $query->execute($parameters);
+    //echo '[ PDO DEBUG ]: ' . Helper::debugPDO($sql, $parameters);  exit();
+    return $query->fetchAll();
+}
+
+public function getSupCredentials($userName, $password){
+    $sql = "SELECT username, password from Supervisor WHERE username=:userName AND password=:password";
+    $query = $this->db->prepare($sql);
+    $parameters = array(':userName' => $userName, ':password' => $password);
+    $query->execute($parameters);
+    //echo '[ PDO DEBUG ]: ' . Helper::debugPDO($sql, $parameters);  exit();
+    return $query->fetchAll();
+}
 
 
 
