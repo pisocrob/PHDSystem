@@ -24,13 +24,13 @@ class Home extends Controller
     }
 
     public function checkRegCredentials() {
-        if(isset($_POST["submit_login"])){
+        if(isset($_POST["submit_reg_login"])){
             $credentials = $this->model->getRegCredentials($_POST["userName"], $_POST["password"]);
             if (sizeof($credentials) > 0){
 
                 $_SESSION['SESS_ID'] = $_POST['userName'];
                 $_SESSION['SESS_USER'] = $_POST['userName'];
-                $_SESSION['USER_TYPE'] = $_POST['userName'];
+                $_SESSION['USER_TYPE'] = 'registrar';
                 
                 require APP . 'view/_templates/header.php';
                 require APP . 'view/home/index.php';
@@ -49,13 +49,13 @@ class Home extends Controller
         if(isset($_POST["submit_login"])){
             $credentials = $this->model->getSupCredentials($_POST["userName"], $_POST["password"]);
             if (sizeof($credentials) > 0){
-                    $_SESSION['SESS_ID'] = 'supervisor';
-                    $_SESSION['SESS_USER'] = $_POST['userName'];
-                    $_SESSION['USER_TYPE'] = 'supervisor';
-                    
-                    require APP . 'view/_templates/header.php';
-                    require APP . 'view/home/index.php';
-                    require APP . 'view/_templates/footer.php'; 
+                $_SESSION['SESS_ID'] = 'supervisor';
+                $_SESSION['SESS_USER'] = $_POST['userName'];
+                $_SESSION['USER_TYPE'] = 'supervisor';
+                
+                require APP . 'view/_templates/header.php';
+                require APP . 'view/home/index.php';
+                require APP . 'view/_templates/footer.php'; 
             }
             else {
                 require APP . 'view/_templates/header.php';
@@ -63,6 +63,28 @@ class Home extends Controller
                 require APP . 'view/_templates/footer.php';
                 echo "User name or password was incorrect";
             }
+        }
+    }
+
+    public function regLogin(){
+        if(isset($_SESSION['USER_TYPE'])){
+            if($_SESSION['USER_TYPE'] == 'supervisor'){
+                require APP . 'view/_templates/header.php';
+                echo 'Already logged in as Supervisor';
+                require APP . 'view/home/index.php';
+                require APP . 'view/_templates/footer.php';   
+            }
+            else{
+                require APP . 'view/_templates/header.php';
+                echo 'Already logged in as Registrar';
+                require APP . 'view/home/index.php';
+                require APP . 'view/_templates/footer.php';     
+            }
+        }
+        else{
+            require APP . 'view/_templates/header.php';
+            require APP . 'view/home/regLogin.php';
+            require APP . 'view/_templates/footer.php';
         }
     }
 }

@@ -26,5 +26,6 @@
         <a href="<?php echo URL; ?>applicant/getallapplicants">Applicants</a>
         <a href="<?php echo URL; ?>submission/getAllSubmissions">Submissions</a>
         <a href="<?php echo URL; ?>Interest">Interest</a>
+        <a href="<?php echo URL; ?>accounts/logOut">LogOut</a>
 
     </div>

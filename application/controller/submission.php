@@ -1,15 +1,22 @@
-<?php
+<?php session_start();
 
 class Submission extends controller {
 
   public function index() {
 
+    if(isset($_SESSION['USER_TYPE'])){
+      $submissions = $this->model->getAllSubmissions();
 
-    $submissions = $this->model->getAllSubmissions();
-
-    require APP . 'view/_templates/header.php';
-        require APP . 'view/submission/index.php';
-        require APP . 'view/_templates/footer.php';
+      require APP . 'view/_templates/header.php';
+      require APP . 'view/submission/index.php';
+      require APP . 'view/_templates/footer.php';      
+    }
+    else{
+      require APP . 'view/_templates/header.php';
+      echo 'Must be logged in';
+      require APP . 'view/home/login.php';
+      require APP . 'view/_templates/footer.php';
+    }
   }
 
   public function getAllSubmissions() {
@@ -23,13 +30,25 @@ class Submission extends controller {
 
     $submissions = $this->model->getAllSubmissions($searchSubmission);
 
-    require APP . 'view/_templates/header.php';
+    if(isset($_SESSION['USER_TYPE'])){
+      if($_SESSION['USER_TYPE'] == 'registrar'){
+        require APP . 'view/_templates/header.php';
+        require APP . 'view/submission/index.php';
+        require APP . 'view/submission/addsubmission.php';
+        require APP . 'view/_templates/footer.php';   
+      }
+      else{
+        require APP . 'view/_templates/header.php';
         require APP . 'view/submission/index.php';
         require APP . 'view/_templates/footer.php';
-
-    //NOTE: commented out header line. For use with index file
-
-
+      }
+    }
+    else {
+      require APP . 'view/_templates/header.php';
+      echo 'Must be logged in';
+      require APP . 'view/home/login.php';
+      require APP . 'view/_templates/footer.php';
+    }
   }
 
   public function xxaddSubmission() {

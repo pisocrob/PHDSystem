@@ -3,6 +3,9 @@
 
 <b>Login</b>
 <p>
+<p>
+<a href="<?php echo URL; ?>home/reglogin">(Registrar)</a>
+</p>
 <label>User Name:
 <input type="text" name="userName" size="30" value="" placeholder="Enter Username"required/>
 </label>
