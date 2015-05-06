@@ -51,23 +51,50 @@ class Submission extends controller {
     }
   }
 
+  //No idea why this isn't working
+  public function emailSetup(){
+  
+  $to = 'phdsystemalerts@gmail.com';
+  $subject = 'New PHD Submission Alerts';
+  $message = 'test';
+  $headers = 'From: phdsystemalerts@gmail.com';
+
+      mail($to, $subject, $message, $headers);
+  }
+
   public function xxaddSubmission() {
 
     $this->model->addSubmission($_POST["submissionID"], $_POST["title"],
       $_POST["dicipline1"], $_POST["dicipline2"], $_POST["dicipline3"],
       $_POST["abstaract"], $_POST["fullProposalPath"], $_POST["submissionDate"],
       $_POST["allocationDate"], $_POST["applicantId"]);
+    self::emailSetup();
     header('location: ' . URL . 'submission/getAllSubmissions');
     }
 
-  public function deleteSubmission() {
-    if(isset($SubmissionID)) {
+  public function deleteSubmission($submissionID) {
+    if(isset($submissionID)) {
       $this->model->deleteSubmission($submissionID);
     }
     header('location: ' . APP . 'view/submission/index.php');
   }
 
-  public function editSubmission() {
-//TODO: write model functions to call
+  public function editSubmission($submissionID) {
+    if(isset($submissionID)){
+      $submission = $this->model->getSubmission($submissionID);
+
+      require APP . 'view/_templates/header.php';
+      require APP . 'view/submission/editSubmission.php';
+      require APP . 'view/_templates/footer.php';
+    }
   }
+
+    public function updateSubmission(){
+      if(isset($_POST["submit_update_submission"])){
+        $this->model->updateSubmission($_POST['title'], $_POST['dicipline1'],
+          $_POST['dicipline2'], $_POST['dicipline3'], $_POST['abstract'], $_POST['fullProposalPath'],
+          $_POST['submissionDate'], $_POST['allocationDate'], $_POST['applicantID'], $_POST['submissionID']);
+      }
+      header('location: ' . URL .'submission/index');
+    }
   }

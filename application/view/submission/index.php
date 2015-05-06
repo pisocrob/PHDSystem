@@ -37,20 +37,17 @@
                 <td><?php if (isset($submission->dicipline1)) echo htmlspecialchars($submission->dicipline1, ENT_QUOTES, 'UTF-8'); ?></td>
                 <td><?php if (isset($submission->dicipline2)) echo htmlspecialchars($submission->dicipline2, ENT_QUOTES, 'UTF-8'); ?></td>
                 <td><?php if (isset($submission->dicipline3)) echo htmlspecialchars($submission->dicipline3, ENT_QUOTES, 'UTF-8'); ?></td>
-                <td><?php if (isset($submission->abstaract)) echo htmlspecialchars($submission->abstaract, ENT_QUOTES, 'UTF-8'); ?></td>
+                <td><?php if (isset($submission->abstract)) echo htmlspecialchars($submission->abstract, ENT_QUOTES, 'UTF-8'); ?></td>
                 <td><?php if (isset($submission->fullProposalPath)) echo htmlspecialchars($submission->fullProposalPath, ENT_QUOTES, 'UTF-8'); ?></td>
                 <td><?php if (isset($submission->submissionDate)) echo htmlspecialchars($submission->submissionDate, ENT_QUOTES, 'UTF-8'); ?></td>
                 <td><?php if (isset($submission->allocationDate)) echo htmlspecialchars($submission->allocationDate, ENT_QUOTES, 'UTF-8'); ?></td>
-                <td><?php if (isset($submission->applicantId)) echo htmlspecialchars($submission->applicantId, ENT_QUOTES, 'UTF-8'); ?></td>
+                <td><?php if (isset($submission->applicantID)) echo htmlspecialchars($submission->applicantID, ENT_QUOTES, 'UTF-8'); ?></td>
                 <td><?php if (isset($submission->active)) echo htmlspecialchars($submission->active, ENT_QUOTES, 'UTF-8'); ?></td>
-               <!-- not too sure what this does?
                      <td>
                     <?php if (isset($submission->link)) { ?>
                         <a href="<?php echo htmlspecialchars($submission->link, ENT_QUOTES, 'UTF-8'); ?>"><?php echo htmlspecialchars($submission->link, ENT_QUOTES, 'UTF-8'); ?></a>
                     <?php } ?>
                 </td>
-                -->
-                <!-- TODO: write controllers for this functionality-->
                 <td><a href="<?php echo URL . 'submission/editsubmission/' . htmlspecialchars($submission->submissionID, ENT_QUOTES, 'UTF-8'); ?>">edit</a></td>
                 <td><a href="<?php echo URL . 'submission/deletesubmission/' . htmlspecialchars($submission->submissionID, ENT_QUOTES, 'UTF-8'); ?>">delete</a></td>
             </tr>

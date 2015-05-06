@@ -7,14 +7,12 @@
 <b>Add a New Submission</b>
 
 <p>
-<label>Submission ID:
-<input type="text" name="submissionID" size="5" value="" placeholder="Enter Submission ID No." required/>
-</label>
+
+<!--removed ID field as it should auto increment-->
 
 <label>Title:
 <input type="text" name="title" size="30" value="" placeholder="Enter Title" required/>
 </label>
-
 
 
 <label>Abstract:

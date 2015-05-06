@@ -58,6 +58,17 @@ public function editapplicant() {
     //TODO: add parameters and do SQL query
 }
 
+public function getSubmission($submissionID){
+    $sql = "SELECT title, dicipline1, dicipline2, dicipline3,
+    abstract, fullProposalPath, submissionDate, allocationDate, applicantID,
+    active, submissionID FROM Submission WHERE submissionID = :submissionID";
+    $query = $this->db->prepare($sql);
+    $parameters = array(':submissionID' => $submissionID);
+    $query->execute($parameters);
+
+    return $query->fetch();
+}
+
 
 /**
  *MATT'S SUBMISSION METHODS START HERE:
@@ -65,7 +76,7 @@ public function editapplicant() {
 
 public function getAllSubmissions($searchSubmission) {
     $sql = "SELECT submissionID, title, dicipline1, dicipline2, dicipline3,
-    abstaract, fullProposalPath, submissionDate, allocationDate, applicantID,
+    abstract, fullProposalPath, submissionDate, allocationDate, applicantID,
     active FROM Submission WHERE title LIKE (:searchSubmission)";
     $query = $this->db->prepare($sql);
     $parameters = array(':searchSubmission' => $searchSubmission);
@@ -76,21 +87,21 @@ public function getAllSubmissions($searchSubmission) {
 
 
 public function addSubmission($submissionID, $title, $dicipline1,
-    $dicipline2, $dicipline3, $abstaract, $fullProposalPath, $submissionDate,
-    $allocationDate, $applicantId) {
+    $dicipline2, $dicipline3, $abstract, $fullProposalPath, $submissionDate,
+    $allocationDate, $applicantID){
     $sql = "INSERT INTO Submission (submissionID, title, dicipline1,
-      dicipline2, dicipline3, abstaract, fullProposalPath, submissionDate,
-      allocationDate, applicantId)
-      VALUES (:submissionID, :title, :dicipline1, :dicipline2, :dicipline3,
-      :abstaract, :fullProposalPath, :submissionDate, :allocationDate,
-      :applicantId)";
+      dicipline2, dicipline3, abstract, fullProposalPath, submissionDate,
+      allocationDate, applicantID)
+       VALUES (:submissionID, :title, :dicipline1, :dicipline2, :dicipline3,
+      :abstract, :fullProposalPath, :submissionDate, :allocationDate,
+      :applicantID)";
 
     $query = $this->db->prepare($sql);
     $parameters = array(':submissionID' => $submissionID, ':title' => $title,
     ':dicipline1' => $dicipline1, ':dicipline2' => $dicipline2,
-    ':dicipline3' => $dicipline3, ':abstaract' => $abstaract,
+    ':dicipline3' => $dicipline3, ':abstract' => $abstract,
     ':fullProposalPath' => $fullProposalPath, ':submissionDate' => $submissionDate,
-    ':allocationDate' => $allocationDate, ':applicantId' => $applicantId);
+    ':allocationDate' => $allocationDate, ':applicantID'  => $applicantID); 
 
     $query->execute($parameters);
 
@@ -98,18 +109,29 @@ public function addSubmission($submissionID, $title, $dicipline1,
    // echo '[ PDO DEBUG ]: ' . Helper::debugPDO($sql, $parameters);  exit();
 }
 
-public function deleteSubmissions($submissionID) {
+public function deleteSubmission($submissionID) {
     $sql = "DELETE FROM Submission WHERE submissionID = :submissionID";
     $query = $this->db->prepare($sql);
     $parameters = array(':submissionID' => $submissionID);
 
     $query->execute($parameters);
     //debugging line
-   echo '[ PDO DEBUG ]: ' . Helper::debugPDO($sql, $parameters);  exit();
+  // echo '[ PDO DEBUG ]: ' . Helper::debugPDO($sql, $parameters);  exit();
 }
 
-public function editSubmissions() {
-    //TODO: add parameters and do SQL query
+public function updateSubmission($title, $dicipline1, $dicipline2, $dicipline3, $abstract, $fullProposalPath, $submissionDate, $allocationDate, $applicantID, $submissionID) {
+    $sql = "UPDATE Submission SET title = :title, dicipline1 = :dicipline1,
+    dicipline2 = :dicipline2, dicipline3 = :dicipline3, abstract = :abstract,
+    fullProposalPath = :fullProposalPath, submissionDate = :submissionDate,
+    allocationDate = :allocationDate, applicantID = :applicantID WHERE submissionID = :submissionID";
+    $query = $this->db->prepare($sql);
+    $parameters = array(':title' => $title, ':dicipline1' => $dicipline1, ':dicipline2' => $dicipline2,
+    ':dicipline3' => $dicipline3, ':abstract' => $abstract, ':fullProposalPath' => $fullProposalPath,
+    ':submissionDate' => $submissionDate, ':allocationDate' => $allocationDate,
+    ':applicantID' => $applicantID, ':submissionID' => $submissionID);
+    $query->execute($parameters);
+    //echo '[ PDO DEBUG ]: ' . Helper::debugPDO($sql, $parameters);  exit();
+
 }
 
 /**
@@ -173,121 +195,4 @@ public function getSupCredentials($userName, $password){
     //echo '[ PDO DEBUG ]: ' . Helper::debugPDO($sql, $parameters);  exit();
     return $query->fetchAll();
 }
-
-
-
-
-    /**
-     *THE STOCK DEFAULT METHODS
-     * Get all songs from database
-     */
-    public function getAllSongs()
-    {
-        $sql = "SELECT id, artist, track, link FROM song";
-        $query = $this->db->prepare($sql);
-        $query->execute();
-
-        // fetchAll() is the PDO method that gets all result rows, here in object-style because we defined this in
-        // core/controller.php! If you prefer to get an associative array as the result, then do
-        // $query->fetchAll(PDO::FETCH_ASSOC); or change core/controller.php's PDO options to
-        // $options = array(PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC ...
-        return $query->fetchAll();
-    }
-
-    /**
-     * Add a song to database
-     * TODO put this explanation into readme and remove it from here
-     * Please note that it's not necessary to "clean" our input in any way. With PDO all input is escaped properly
-     * automatically. We also don't use strip_tags() etc. here so we keep the input 100% original (so it's possible
-     * to save HTML and JS to the database, which is a valid use case). Data will only be cleaned when putting it out
-     * in the views (see the views for more info).
-     * @param string $artist Artist
-     * @param string $track Track
-     * @param string $link Link
-     */
-    public function addSong($artist, $track, $link)
-    {
-        $sql = "INSERT INTO song (artist, track, link) VALUES (:artist, :track, :link)";
-        $query = $this->db->prepare($sql);
-        $parameters = array(':artist' => $artist, ':track' => $track, ':link' => $link);
-
-        // useful for debugging: you can see the SQL behind above construction by using:
-        // echo '[ PDO DEBUG ]: ' . Helper::debugPDO($sql, $parameters);  exit();
-
-        $query->execute($parameters);
-    }
-
-    /**
-     * Delete a song in the database
-     * Please note: this is just an example! In a real application you would not simply let everybody
-     * add/update/delete stuff!
-     * @param int $song_id Id of song
-     */
-    public function deleteSong($song_id)
-    {
-        $sql = "DELETE FROM song WHERE id = :song_id";
-        $query = $this->db->prepare($sql);
-        $parameters = array(':song_id' => $song_id);
-
-        // useful for debugging: you can see the SQL behind above construction by using:
-        // echo '[ PDO DEBUG ]: ' . Helper::debugPDO($sql, $parameters);  exit();
-
-        $query->execute($parameters);
-    }
-
-    /**
-     * Get a song from database
-     */
-    public function getSong($song_id)
-    {
-        $sql = "SELECT id, artist, track, link FROM song WHERE id = :song_id LIMIT 1";
-        $query = $this->db->prepare($sql);
-        $parameters = array(':song_id' => $song_id);
-
-        // useful for debugging: you can see the SQL behind above construction by using:
-        // echo '[ PDO DEBUG ]: ' . Helper::debugPDO($sql, $parameters);  exit();
-
-        $query->execute($parameters);
-
-        // fetch() is the PDO method that get exactly one result
-        return $query->fetch();
-    }
-
-    /**
-     * Update a song in database
-     * // TODO put this explaination into readme and remove it from here
-     * Please note that it's not necessary to "clean" our input in any way. With PDO all input is escaped properly
-     * automatically. We also don't use strip_tags() etc. here so we keep the input 100% original (so it's possible
-     * to save HTML and JS to the database, which is a valid use case). Data will only be cleaned when putting it out
-     * in the views (see the views for more info).
-     * @param string $artist Artist
-     * @param string $track Track
-     * @param string $link Link
-     * @param int $song_id Id
-     */
-    public function updateSong($artist, $track, $link, $song_id)
-    {
-        $sql = "UPDATE song SET artist = :artist, track = :track, link = :link WHERE id = :song_id";
-        $query = $this->db->prepare($sql);
-        $parameters = array(':artist' => $artist, ':track' => $track, ':link' => $link, ':song_id' => $song_id);
-
-        // useful for debugging: you can see the SQL behind above construction by using:
-        // echo '[ PDO DEBUG ]: ' . Helper::debugPDO($sql, $parameters);  exit();
-
-        $query->execute($parameters);
-    }
-
-    /**
-     * Get simple "stats". This is just a simple demo to show
-     * how to use more than one model in a controller (see application/controller/songs.php for more)
-     */
-    public function getAmountOfSongs()
-    {
-        $sql = "SELECT COUNT(id) AS amount_of_songs FROM song";
-        $query = $this->db->prepare($sql);
-        $query->execute();
-
-        // fetch() is the PDO method that get exactly one result
-        return $query->fetch()->amount_of_songs;
-    }
 }
