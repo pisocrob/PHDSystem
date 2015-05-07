@@ -60,57 +60,33 @@ class Applicant extends controller {
 	}
 
 	public function xxaddApplicant() {
-
-		if(isset($_SESSION['USER_TYPE'])){
-			if($_SESSION['USER_TYPE'] == 'registrar'){
-				require APP . 'view/_templates/header.php';
-		        require APP . 'view/applicant/index.php';
-		        require APP . 'view/applicant/addApplicant.php';
-		        require APP . 'view/_templates/footer.php';		
-				$this->model->addApplicant($_POST["fname"],  $_POST["lname"], $_POST["email"],
-				$_POST["qualifications"], $_POST["cv"],	$_POST["passport"]);
-			}
-			else{
-				require APP . 'view/_templates/header.php';
-		        require APP . 'view/applicant/index.php';
-		        require APP . 'view/_templates/footer.php';
-			}
-		}
-		else {
-			require APP . 'view/_templates/header.php';
-			echo 'Must be logged in';
-	        require APP . 'view/home/index.php';
-	        require APP . 'view/_templates/footer.php';
-		}
-		}
+		$this->model->addApplicant($_POST["fname"],  $_POST["lname"], $_POST["email"],
+		$_POST["qualifications"], $_POST["cv"],	$_POST["passport"]);
+		header('location: ' . URL . 'applicant/getAllApplicants');
+	}
 
 		
 
-	public function deleteapplicant() {
-		if($_SESSION['USER_TYPE'] == 'registrar'){
-				require APP . 'view/_templates/header.php';
-		        require APP . 'view/applicant/index.php';
-		        require APP . 'view/applicant/addApplicant.php';
-		        require APP . 'view/_templates/footer.php';		
-				if(isset($applicantid)) {
-					$this->model->deleteapplicant($applicantid);
-				}
-				else{
-					require APP . 'view/_templates/header.php';
-			        require APP . 'view/applicant/index.php';
-			        require APP . 'view/_templates/footer.php';
-				}
-			}
-		else {
-			require APP . 'view/_templates/header.php';
-			echo 'Must be logged in';
-	        require APP . 'view/home/index.php';
-	        require APP . 'view/_templates/footer.php';
+	public function deleteApplicant($applicantid) {	
+		if(isset($applicantid)) {
+			$this->model->deleteApplicant($applicantid);
 		}
 	}
 
-	public function editapplicant() {
-		
-			//TODO: write model functions to call
+	public function editApplicant($applicantid) {
+		if(isset($applicantid)){
+			$applicant = $this->model->getApplicant($applicantid);
+
+			require APP . 'view/_templates/header.php';
+			require APP . 'view/applicant/editApplicant.php';
+			require APP . 'view/_templates/footer.php';
+		}
 	}
+
+	public function updateApplicant(){
+		if(isset($_POST['submit_update_applicant'])){
+			$this->model->updateApplicant($_POST['fname'], $_POST['lname'], $_POST['qualifications,'],
+				$_POST['cvpath'], $_POST['passportpath'], ['email'], $_POST['applicantid']);
+		}
 	}
+}

@@ -35,14 +35,12 @@
                 <td><?php if (isset($applicant->cvpath)) echo htmlspecialchars($applicant->cvpath, ENT_QUOTES, 'UTF-8'); ?></td>
                 <td><?php if (isset($applicant->passportpath)) echo htmlspecialchars($applicant->passportpath, ENT_QUOTES, 'UTF-8'); ?></td>
                 <td><?php if (isset($applicant->email)) echo htmlspecialchars($applicant->email, ENT_QUOTES, 'UTF-8'); ?></td>
-               <!-- not too sure what this does?
                      <td>
                     <?php if (isset($applicant->link)) { ?>
                         <a href="<?php echo htmlspecialchars($applicant->link, ENT_QUOTES, 'UTF-8'); ?>"><?php echo htmlspecialchars($applicant->link, ENT_QUOTES, 'UTF-8'); ?></a>
                     <?php } ?>
                 </td>
-                -->
-                <!-- TODO: write controllers for this functionality-->
+                
                 <td><a href="<?php echo URL . 'applicant/editapplicant/' . htmlspecialchars($applicant->applicantid, ENT_QUOTES, 'UTF-8'); ?>">edit</a></td>
                 <td><a href="<?php echo URL . 'applicant/deleteapplicant/' . htmlspecialchars($applicant->applicantid, ENT_QUOTES, 'UTF-8'); ?>">delete</a></td>
             </tr>

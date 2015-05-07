@@ -76,7 +76,7 @@ class Submission extends controller {
     if(isset($submissionID)) {
       $this->model->deleteSubmission($submissionID);
     }
-    header('location: ' . APP . 'view/submission/index.php');
+    header('location: ' . URL . 'submission/getAllSubmissions');
   }
 
   public function editSubmission($submissionID) {
@@ -90,11 +90,18 @@ class Submission extends controller {
   }
 
     public function updateSubmission(){
-      if(isset($_POST["submit_update_submission"])){
+      if(isset($_POST['submit_update_submission'])){
         $this->model->updateSubmission($_POST['title'], $_POST['dicipline1'],
           $_POST['dicipline2'], $_POST['dicipline3'], $_POST['abstract'], $_POST['fullProposalPath'],
           $_POST['submissionDate'], $_POST['allocationDate'], $_POST['applicantID'], $_POST['submissionID']);
       }
-      header('location: ' . URL .'submission/index');
+      header('location: ' . URL .'submission/getAllSubmissions');
+    }
+
+    public function markForInterest($submissionID){
+      if(isset($submissionID)){
+        $this->model->markForInterest($submissionID,$_SESSION['SESS_USER']);
+      }
+      header('location: ' . URL . 'submission/getAllSubmissions');
     }
   }

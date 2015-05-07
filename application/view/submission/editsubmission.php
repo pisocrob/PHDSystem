@@ -10,8 +10,8 @@
         <input type="text" name="fullProposalPath" value="<?php echo htmlspecialchars($submission->fullProposalPath, ENT_QUOTES, 'UTF-8'); ?>" />
         <input type="text" name="submissionDate" value="<?php echo htmlspecialchars($submission->submissionDate, ENT_QUOTES, 'UTF-8'); ?>" />
         <input type="text" name="allocationDate" value="<?php echo htmlspecialchars($submission->allocationDate, ENT_QUOTES, 'UTF-8'); ?>" />
-        <input type="hidden" name="applicantID" value="<?php echo htmlspecialchars($submission->applicantID, ENT_QUOTES, 'UTF-8'); ?>" />
         <input type="text" name="submissionID" value="<?php echo htmlspecialchars($submission->submissionID, ENT_QUOTES, 'UTF-8'); ?>" />
+        <input type="hidden" name="applicantID" value="<?php echo htmlspecialchars($submission->applicantID, ENT_QUOTES, 'UTF-8'); ?>" />
 
         <p>
         <select name="dicipline1" >

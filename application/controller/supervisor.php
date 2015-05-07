@@ -63,30 +63,34 @@ class Supervisor extends controller {
 
   public function xxaddSupervisor() {
 
-    if(isset($_SESSION['USER_TYPE'])){
-      if($_SESSION['USER_TYPE'] == 'registrar'){
-    $this->model->addSupervisor($_POST["userName"], $_POST["staffNo"],
+    
+      $this->model->addSupervisor($_POST["userName"], $_POST["staffNo"],
       $_POST["password"], $_POST["email"], $_POST["fName"], $_POST["lName"],
       $_POST["sDicipline1"], $_POST["sDicipline2"], $_POST["sDicipline3"]);
-    header('location: ' . URL . 'supervisor/getAllSupervisors');        
-      }
+    header('location: ' . URL . 'supervisor/getAllSupervisors');         
+  }
+
+  public function deleteSupervisor($supervisorID) {
+        if(isset($supervisorID)) {
+          $this->model->deleteSupervisor($supervisorID);
+        }
+      header('location: ' . APP . 'view/supervisor/getAllSupervisors.php');        
+  }  
+
+  public function editSupervisor($supervisorID) {
+    if(isset($supervisorID)){
+      $supervisor = $this->model->getSupervisor($supervisorID);
+
+      require APP . 'view/_templates/header.php';
+      require APP . 'view/supervisor/editSupervisor.php';
+      require APP . 'view/_templates/footer.php';
     }
   }
 
-
-//Not sure how to access the required username for these two methods?
-  public function deleteSupervisor() {
-    if(isset($_SESSION['USER_TYPE'])){
-      if($_SESSION['USER_TYPE'] == registrar){
-        if(isset($supervisorID)) {
-          $this->model->deleteSupervisor($userName);
-        }
-      header('location: ' . APP . 'view/supervisor/index.php');        
-      }
-    }  
+  public function updateSupervisor(){
+    if(isset($_POST['submit_update_supervisor'])){
+      $this->model->updateSupervisor($_POST['userName'], $_POST['staffNo'], $_POST['password'], $_POST['email'], $_POST['fname'], $_POST['lname'], $_POST['sDicipline1'], $_POST['sDicipline2'], $_POST['sDicipline3']);
+    }
+    header('location: ' . URL .'supervisor/getAllSupervisors');
   }
-
-  public function editSupervisor() {
-//TODO: write model functions to call
-  }
-  }
+}

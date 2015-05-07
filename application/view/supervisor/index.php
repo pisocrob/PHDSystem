@@ -14,6 +14,7 @@
     <table>
         <thead style="background-color: #ddd; font-weight: bold;">
         <tr>
+            <td>Supervisor ID</td>
             <td>userName</td>
             <td>staffNo</td>
             <td>password</td>
@@ -26,10 +27,11 @@
             <td>EDIT</td>
             <td>DELETE</td>
         </tr>
-                </thead>
+            </thead>
         <tbody>
         <?php foreach ($supervisors as $supervisor) { ?>
             <tr>
+                <td><?php if (isset($supervisor->supervisorID)) echo htmlspecialchars($supervisor->supervisorID, ENT_QUOTES, 'UTF-8'); ?></td>
                 <td><?php if (isset($supervisor->userName)) echo htmlspecialchars($supervisor->userName, ENT_QUOTES, 'UTF-8'); ?></td>
                 <td><?php if (isset($supervisor->staffNo)) echo htmlspecialchars($supervisor->staffNo, ENT_QUOTES, 'UTF-8'); ?></td>
                 <td><?php if (isset($supervisor->password)) echo htmlspecialchars($supervisor->password, ENT_QUOTES, 'UTF-8'); ?></td>
@@ -39,16 +41,14 @@
                 <td><?php if (isset($supervisor->sDicipline1)) echo htmlspecialchars($supervisor->sDicipline1, ENT_QUOTES, 'UTF-8'); ?></td>
                 <td><?php if (isset($supervisor->sDicipline2)) echo htmlspecialchars($supervisor->sDicipline2, ENT_QUOTES, 'UTF-8'); ?></td>
                 <td><?php if (isset($supervisor->sDicipline3)) echo htmlspecialchars($supervisor->sDicipline3, ENT_QUOTES, 'UTF-8'); ?></td>
-               <!-- not too sure what this does?
+               
                      <td>
                     <?php if (isset($supervisor->link)) { ?>
                         <a href="<?php echo htmlspecialchars($supervisor->link, ENT_QUOTES, 'UTF-8'); ?>"><?php echo htmlspecialchars($supervisor->link, ENT_QUOTES, 'UTF-8'); ?></a>
                     <?php } ?>
                 </td>
-                -->
-                <!-- TODO: write controllers for this functionality-->
-                <td><a href="<?php echo URL . 'Supervisor/editSupervisor/' . htmlspecialchars($supervisor->userName, ENT_QUOTES, 'UTF-8'); ?>">edit</a></td>
-                <td><a href="<?php echo URL . 'Supervisor/deleteSupervisor/' . htmlspecialchars($supervisor->userName, ENT_QUOTES, 'UTF-8'); ?>">delete</a></td>
+                <td><a href="<?php echo URL . 'Supervisor/editSupervisor/' . htmlspecialchars($supervisor->supervisorID, ENT_QUOTES, 'UTF-8'); ?>">edit</a></td>
+                <td><a href="<?php echo URL . 'Supervisor/deleteSupervisor/' . htmlspecialchars($supervisor->supervisorID, ENT_QUOTES, 'UTF-8'); ?>">delete</a></td>
             </tr>
         <?php } ?>
         </tbody>
