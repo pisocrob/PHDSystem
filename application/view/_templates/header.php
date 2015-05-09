@@ -23,7 +23,7 @@
     <div class="navigation">
         <a href="<?php echo URL; ?>">home</a>
         <a href="<?php echo URL; ?>supervisor/getAllSupervisors">Supervisors</a>
-        <a href="<?php echo URL; ?>applicant/getallapplicants">Applicants</a>
+        <a href="<?php echo URL; ?>applicant/getAllApplicants">Applicants</a>
         <a href="<?php echo URL; ?>submission/getAllSubmissions">Submissions</a>
         <a href="<?php echo URL; ?>Interest">Interest</a>
         <a href="<?php echo URL; ?>accounts/logOut">LogOut</a>

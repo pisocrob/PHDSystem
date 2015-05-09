@@ -28,14 +28,14 @@
 
 
 		<label>CV File Location:
-		<input type="text" name="cv" size="30" value="<?php echo htmlspecialchars($applicant->cvpath, ENT_QUOTES, 'UTF-8'); ?>"/>
+		<input type="text" name="cvpath" size="30" value="<?php echo htmlspecialchars($applicant->cvpath, ENT_QUOTES, 'UTF-8'); ?>"/>
 		</label>
 
 		<label>Passport File Location:
-		<input type="text" name="passport" size="30" value="<?php echo htmlspecialchars($applicant->passportpath, ENT_QUOTES, 'UTF-8'); ?>"/>
+		<input type="text" name="passportPath" size="30" value="<?php echo htmlspecialchars($applicant->passportPath, ENT_QUOTES, 'UTF-8'); ?>"/>
 		</label>
 
-		<input type="hidden" name="applicantID" value="<?php echo htmlspecialchars($applicant->applicantid, ENT_QUOTES, 'UTF-8'); ?>"/>
+		<input type="hidden" name="applicantID" value="<?php echo htmlspecialchars($applicant->applicantID, ENT_QUOTES, 'UTF-8'); ?>"/>
 
 		<label>
 		<input type="submit" name="submit_update_applicant" value="Send" />

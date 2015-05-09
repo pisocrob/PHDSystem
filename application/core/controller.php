@@ -10,7 +10,15 @@ class Controller
     /**
      * @var null Model
      */
-    public $model = null;
+
+
+    public $supervisors = null;
+
+    public $applicants = null;
+
+    public $logins = null;
+
+    public $submissions = null;
 
     /**
      * Whenever controller is created, open a database connection too and load "the model".
@@ -18,7 +26,11 @@ class Controller
     function __construct()
     {
         $this->openDatabaseConnection();
-        $this->loadModel();
+        $this->loadSupervisor();
+        $this->loadApplicant();
+        $this->loadLogin();
+        $this->loadSubmission();
+
     }
 
     /**
@@ -41,10 +53,32 @@ class Controller
      * Loads the "model".
      * @return object model
      */
-    public function loadModel()
+    
+    public function loadSupervisor()
     {
-        require APP . '/model/model.php';
+        require APP . '/model/supervisors.php';
         // create new "model" (and pass the database connection)
-        $this->model = new Model($this->db);
+        $this->supervisors = new Supervisors($this->db);
+    }
+
+    public function loadApplicant()
+    {
+        require APP . '/model/applicants.php';
+        // create new "model" (and pass the database connection)
+        $this->applicants = new Applicants($this->db);
+    }
+
+    public function loadLogin()
+    {
+        require APP . '/model/logins.php';
+        // create new "model" (and pass the database connection)
+        $this->logins = new Logins($this->db);
+    }
+
+    public function loadSubmission()
+    {
+        require APP . '/model/submissions.php';
+        // create new "model" (and pass the database connection)
+        $this->submissions = new Submissions($this->db);
     }
 }

@@ -21,6 +21,8 @@
             <td>CV Path</td>
             <td>Passport Path</td>
             <td>Email</td>
+            <td>EDIT</td>
+            <td>DELETE</td>
         </tr>
         </thead>
         <tbody>
@@ -34,6 +36,9 @@
                 <td><?php if (isset($applicant->passportPath)) echo htmlspecialchars($applicant->passportPath, ENT_QUOTES, 'UTF-8'); ?></td>
                 <td><?php if (isset($applicant->email)) echo htmlspecialchars($applicant->email, ENT_QUOTES, 'UTF-8'); ?></td>
 
+
+                <td><a href="<?php echo URL . 'applicant/editapplicant/' . htmlspecialchars($applicant->applicantID, ENT_QUOTES, 'UTF-8'); ?>">edit</a></td>
+                <td><a href="<?php echo URL . 'applicant/deleteapplicant/' . htmlspecialchars($applicant->applicantID, ENT_QUOTES, 'UTF-8'); ?>">delete</a></td>
 
                 <td>
                <?php if (isset($applicant->link)) { ?>

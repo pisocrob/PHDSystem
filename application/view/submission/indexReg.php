@@ -24,6 +24,8 @@
             <td>Allocation Date</td>
             <td>Applicant ID</td>
             <td>Active</td>
+            <td>EDIT</td>
+            <td>DELETE</td>
         </tr>
                 </thead>
         <tbody>
@@ -42,7 +44,8 @@
                 <td><?php if (isset($submission->active)) echo htmlspecialchars($submission->active, ENT_QUOTES, 'UTF-8'); ?></td>
 
                 </td>
-                <td><a href="<?php echo URL . 'submission/markforinterest/' . htmlspecialchars($submission->submissionID, ENT_QUOTES, 'UTF-8'); ?>">interested</a></td>
+                <td><a href="<?php echo URL . 'submission/editsubmission/' . htmlspecialchars($submission->submissionID, ENT_QUOTES, 'UTF-8'); ?>">edit</a></td>
+                <td><a href="<?php echo URL . 'submission/deletesubmission/' . htmlspecialchars($submission->submissionID, ENT_QUOTES, 'UTF-8'); ?>">delete</a></td>
                 <td>
                <?php if (isset($submission->link)) { ?>
                    <a href="<?php echo htmlspecialchars($submission->link, ENT_QUOTES, 'UTF-8'); ?>"><?php echo htmlspecialchars($submission->link, ENT_QUOTES, 'UTF-8'); ?></a>

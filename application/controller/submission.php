@@ -5,11 +5,11 @@ class Submission extends controller {
   public function index() {
 
     if(isset($_SESSION['USER_TYPE'])){
-      $submissions = $this->model->getAllSubmissions();
+      $submissions = $this->submissions->getAllSubmissions();
 
       require APP . 'view/_templates/header.php';
       require APP . 'view/submission/index.php';
-      require APP . 'view/_templates/footer.php';      
+      require APP . 'view/_templates/footer.php';
     }
     else{
       require APP . 'view/_templates/header.php';
@@ -28,14 +28,14 @@ class Submission extends controller {
       $searchSubmission=$_POST['searchSubmission'];
       }
 
-    $submissions = $this->model->getAllSubmissions($searchSubmission);
+    $submissions = $this->submissions->getAllSubmissions($searchSubmission);
 
     if(isset($_SESSION['USER_TYPE'])){
       if($_SESSION['USER_TYPE'] == 'registrar'){
         require APP . 'view/_templates/header.php';
-        require APP . 'view/submission/index.php';
+        require APP . 'view/submission/indexReg.php';
         require APP . 'view/submission/addsubmission.php';
-        require APP . 'view/_templates/footer.php';   
+        require APP . 'view/_templates/footer.php';
       }
       else{
         require APP . 'view/_templates/header.php';
@@ -51,37 +51,35 @@ class Submission extends controller {
     }
   }
 
-  //No idea why this isn't working
-  public function emailSetup(){
-  
-  $to = 'phdsystemalerts@gmail.com';
-  $subject = 'New PHD Submission Alerts';
-  $message = 'test';
-  $headers = 'From: phdsystemalerts@gmail.com';
-
-      mail($to, $subject, $message, $headers);
-  }
-
   public function xxaddSubmission() {
 
-    $this->model->addSubmission($_POST["submissionID"], $_POST["title"],
+    $this->submissions->addSubmission($_POST["title"],
       $_POST["dicipline1"], $_POST["dicipline2"], $_POST["dicipline3"],
       $_POST["abstaract"], $_POST["fullProposalPath"], $_POST["submissionDate"],
-      $_POST["allocationDate"], $_POST["applicantId"]);
-    self::emailSetup();
+      $_POST["allocationDate"], $_POST["applicantID"]);
+
+  $emails = $this->submissions->getEmailList($_POST["dicipline1"], $_POST["dicipline2"], $_POST["dicipline3"]);
+  $emailList = implode(', ', $emails);
+  $to = $emailList;
+  $subject = 'New PHD Submission Alerts';
+  $message = 'Tesing round 3';
+  $headers = 'From: phdsystemalerts@gmail.com';
+
+  mail($emailList, $subject, $message, $headers);
+      
     header('location: ' . URL . 'submission/getAllSubmissions');
     }
 
   public function deleteSubmission($submissionID) {
     if(isset($submissionID)) {
-      $this->model->deleteSubmission($submissionID);
+      $this->submissions->deleteSubmission($submissionID);
     }
     header('location: ' . URL . 'submission/getAllSubmissions');
   }
 
   public function editSubmission($submissionID) {
     if(isset($submissionID)){
-      $submission = $this->model->getSubmission($submissionID);
+      $submission = $this->submissions->getSubmission($submissionID);
 
       require APP . 'view/_templates/header.php';
       require APP . 'view/submission/editSubmission.php';
@@ -91,7 +89,7 @@ class Submission extends controller {
 
     public function updateSubmission(){
       if(isset($_POST['submit_update_submission'])){
-        $this->model->updateSubmission($_POST['title'], $_POST['dicipline1'],
+        $this->submissions->updateSubmission($_POST['title'], $_POST['dicipline1'],
           $_POST['dicipline2'], $_POST['dicipline3'], $_POST['abstract'], $_POST['fullProposalPath'],
           $_POST['submissionDate'], $_POST['allocationDate'], $_POST['applicantID'], $_POST['submissionID']);
       }
@@ -100,7 +98,7 @@ class Submission extends controller {
 
     public function markForInterest($submissionID){
       if(isset($submissionID)){
-        $this->model->markForInterest($submissionID,$_SESSION['SESS_USER']);
+        $this->submissions->markForInterest($submissionID,$_SESSION['SESS_USER']);
       }
       header('location: ' . URL . 'submission/getAllSubmissions');
     }

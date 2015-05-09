@@ -6,16 +6,16 @@ class Applicant extends controller {
 
 
 	public function index() {
-		
+
 		$searchApplicant = '*';
-		$applicants = $this->model->getAllApplicants();
+		$applicants = $this->applicants->getAllApplicants();
 
 		if(isset($_SESSION['USER_TYPE'])){
 			if($_SESSION['USER_TYPE'] == 'registrar'){
 				require APP . 'view/_templates/header.php';
-		        require APP . 'view/applicant/index.php';
+		        require APP . 'view/applicant/indexReg.php';
 		        require APP . 'view/applicant/addApplicant.php';
-		        require APP . 'view/_templates/footer.php';		
+		        require APP . 'view/_templates/footer.php';
 			}
 			else{
 				require APP . 'view/_templates/header.php';
@@ -23,11 +23,17 @@ class Applicant extends controller {
 		        require APP . 'view/_templates/footer.php';
 			}
 		}
+		else{
+			require APP . 'view/_templates/header.php';
+			echo 'Must be logged in';
+			require APP . 'view/home/login.php';
+			require APP . 'view/_templates/footer.php';
+		}
 	}
 
 	public function getAllApplicants() {
 
-		
+
 		if (empty($_POST["searchApplicant"])) {
     $searchApplicant = "%";
 		}
@@ -35,14 +41,14 @@ class Applicant extends controller {
 		$searchApplicant=$_POST['searchApplicant'];
 		}
 
-		$applicants = $this->model->getAllApplicants($searchApplicant);
+		$applicants = $this->applicants->getAllApplicants($searchApplicant);
 
 		if(isset($_SESSION['USER_TYPE'])){
 			if($_SESSION['USER_TYPE'] == 'registrar'){
 				require APP . 'view/_templates/header.php';
-		        require APP . 'view/applicant/index.php';
+		        require APP . 'view/applicant/indexReg.php';
 		        require APP . 'view/applicant/addApplicant.php';
-		        require APP . 'view/_templates/footer.php';		
+		        require APP . 'view/_templates/footer.php';
 			}
 			else{
 				require APP . 'view/_templates/header.php';
@@ -60,22 +66,24 @@ class Applicant extends controller {
 	}
 
 	public function xxaddApplicant() {
-		$this->model->addApplicant($_POST["fname"],  $_POST["lname"], $_POST["email"],
+		$this->applicants->addApplicant($_POST["fname"],  $_POST["lname"], $_POST["email"],
 		$_POST["qualifications"], $_POST["cv"],	$_POST["passport"]);
 		header('location: ' . URL . 'applicant/getAllApplicants');
 	}
 
-		
 
-	public function deleteApplicant($applicantid) {	
-		if(isset($applicantid)) {
-			$this->model->deleteApplicant($applicantid);
+
+	public function deleteApplicant($applicantID) {
+		if(isset($applicantID)) {
+			$this->applicants->deleteApplicant($applicantID);
+
+			header('location: ' . URL . 'applicant/getAllApplicants');
 		}
 	}
 
-	public function editApplicant($applicantid) {
-		if(isset($applicantid)){
-			$applicant = $this->model->getApplicant($applicantid);
+	public function editApplicant($applicantID) {
+		if(isset($applicantID)){
+			$applicant = $this->applicants->getApplicant($applicantID);
 
 			require APP . 'view/_templates/header.php';
 			require APP . 'view/applicant/editApplicant.php';
@@ -85,8 +93,10 @@ class Applicant extends controller {
 
 	public function updateApplicant(){
 		if(isset($_POST['submit_update_applicant'])){
-			$this->model->updateApplicant($_POST['fname'], $_POST['lname'], $_POST['qualifications,'],
-				$_POST['cvpath'], $_POST['passportpath'], ['email'], $_POST['applicantid']);
+			$this->applicants->updateApplicant($_POST['fname'], $_POST['lname'], $_POST['qualifications'],
+				$_POST['cvpath'], $_POST['passportPath'], $_POST['email'], $_POST['applicantID']);
+
+			header('location: ' . URL . 'applicant/getAllApplicants');
 		}
 	}
 }

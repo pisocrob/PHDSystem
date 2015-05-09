@@ -1,11 +1,16 @@
 # Current state
-Running with almost all methods implemented. Still needs edit and delete writing/implementing
+All stories cards implemented. Remaining: Interest page, advanced search features.
 
 # Model
-Currently consists of only one file which contains all database calls. May split this into various files if it seems more practical.
+Matt kindly split the model into seperate scripts for each controller. All fully functional.
 
 # View
-AFIAK all necessary views are in place. Currently the login system echoes from the controller. Not MVC, I'm hoping someone can handle the front end stuff to beautify it a little.
+All fully functional, new views created in accordance with the buttons supervisors and registrars should and should not have.
 
 # Controllers
-Added a new controller called accounts.php. All it does at the moment is session_destroy() to recent the login. I think whoever takes on this project could refactor the login system and stick it in there.
+All controllers functioning with all methods in place.
+
+#Refactoring
+Partially complete.
+
+Have starting checking for camelCase in method and variable names. Any changes that I have made, have had any related paths/dependencies fixed.

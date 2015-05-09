@@ -24,6 +24,8 @@
             <td>sDicipline1</td>
             <td>sDicipline2</td>
             <td>sDicipline3</td>
+            <td>EDIT</td>
+            <td>DELETE</td>
         </tr>
             </thead>
         <tbody>
@@ -39,6 +41,10 @@
                 <td><?php if (isset($supervisor->sDicipline1)) echo htmlspecialchars($supervisor->sDicipline1, ENT_QUOTES, 'UTF-8'); ?></td>
                 <td><?php if (isset($supervisor->sDicipline2)) echo htmlspecialchars($supervisor->sDicipline2, ENT_QUOTES, 'UTF-8'); ?></td>
                 <td><?php if (isset($supervisor->sDicipline3)) echo htmlspecialchars($supervisor->sDicipline3, ENT_QUOTES, 'UTF-8'); ?></td>
+
+
+                <td><a href="<?php echo URL . 'Supervisor/editSupervisor/' . htmlspecialchars($supervisor->supervisorID, ENT_QUOTES, 'UTF-8'); ?>">edit</a></td>
+                <td><a href="<?php echo URL . 'Supervisor/deleteSupervisor/' . htmlspecialchars($supervisor->supervisorID, ENT_QUOTES, 'UTF-8'); ?>">delete</a></td>
                 <td>
                <?php if (isset($supervisor->link)) { ?>
                    <a href="<?php echo htmlspecialchars($supervisor->link, ENT_QUOTES, 'UTF-8'); ?>"><?php echo htmlspecialchars($supervisor->link, ENT_QUOTES, 'UTF-8'); ?></a>

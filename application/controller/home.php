@@ -10,13 +10,13 @@
  */
 class Home extends Controller
 {
-    
 
-    
+
+
 
     public function index()
     {
-        
+
         // load views
         require APP . 'view/_templates/header.php';
         require APP . 'view/home/login.php';
@@ -25,13 +25,13 @@ class Home extends Controller
 
     public function checkRegCredentials() {
         if(isset($_POST["submit_reg_login"])){
-            $credentials = $this->model->getRegCredentials($_POST["userName"], $_POST["password"]);
+            $credentials = $this->logins->getRegCredentials($_POST["userName"], $_POST["password"]);
             if (sizeof($credentials) > 0){
 
                 $_SESSION['SESS_ID'] = $_POST['userName'];
                 $_SESSION['SESS_USER'] = $_POST['userName'];
                 $_SESSION['USER_TYPE'] = 'registrar';
-                
+
                 require APP . 'view/_templates/header.php';
                 require APP . 'view/home/index.php';
                 require APP . 'view/_templates/footer.php';
@@ -47,15 +47,15 @@ class Home extends Controller
 
     public function checkSupCredentials() {
         if(isset($_POST["submit_login"])){
-            $credentials = $this->model->getSupCredentials($_POST["userName"], $_POST["password"]);
+            $credentials = $this->logins->getSupCredentials($_POST["userName"], $_POST["password"]);
             if (sizeof($credentials) > 0){
                 $_SESSION['SESS_ID'] = 'supervisor';
                 $_SESSION['SESS_USER'] = $_POST['userName'];
                 $_SESSION['USER_TYPE'] = 'supervisor';
-                
+
                 require APP . 'view/_templates/header.php';
                 require APP . 'view/home/index.php';
-                require APP . 'view/_templates/footer.php'; 
+                require APP . 'view/_templates/footer.php';
             }
             else {
                 require APP . 'view/_templates/header.php';
@@ -72,13 +72,13 @@ class Home extends Controller
                 require APP . 'view/_templates/header.php';
                 echo 'Already logged in as Supervisor';
                 require APP . 'view/home/index.php';
-                require APP . 'view/_templates/footer.php';   
+                require APP . 'view/_templates/footer.php';
             }
             else{
                 require APP . 'view/_templates/header.php';
                 echo 'Already logged in as Registrar';
                 require APP . 'view/home/index.php';
-                require APP . 'view/_templates/footer.php';     
+                require APP . 'view/_templates/footer.php';
             }
         }
         else{

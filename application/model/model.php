@@ -17,7 +17,7 @@ class Model
 //APPLICANT:
 
 public function getApplicant($applicantID){
-    $sql = "SELECT fname, lname, email, qualifications, cvpath, passportPath, applicantId
+    $sql = "SELECT fname, lname, email, qualifications, cvpath, passportPath, applicantID
     FROM Applicant WHERE applicantID = :applicantID";
     $query = $this->db->prepare($sql);
     $parameters = array(':applicantID' => $applicantID);
@@ -27,7 +27,7 @@ public function getApplicant($applicantID){
 }
 
 public function getAllApplicants($searchApplicant) {
-    $sql = "SELECT applicantid, fname, lname, qualifications, cvpath, passportpath, email FROM Applicant WHERE fName LIKE (:searchApplicant)";
+    $sql = "SELECT applicantID, fname, lname, qualifications, cvpath, passportPath, email FROM Applicant WHERE fName LIKE (:searchApplicant)";
     $query = $this->db->prepare($sql);
     $parameters = array(':searchApplicant' => $searchApplicant);
 
@@ -37,36 +37,36 @@ public function getAllApplicants($searchApplicant) {
 }
 
 
-public function addApplicant($fname, $lname, $email, $qualifications, $cvpath, $passportpath) {
-    $sql = "INSERT INTO applicant (fname, lname, email, qualifications, cvpath, passportpath)
+public function addApplicant($fname, $lname, $email, $qualifications, $cvpath, $passportPath) {
+    $sql = "INSERT INTO applicant (fname, lname, email, qualifications, cvpath, passportPath)
     VALUES (:fname, :lname, :email, :qualifications, :cv, :passport)";
     $query = $this->db->prepare($sql);
 
     $parameters = array(':fname' => $fname, ':lname' => $lname, ':email' => $email,
-    ':qualifications' => $qualifications, ':cv' => $cvpath, ':passport' => $passportpath);
+    ':qualifications' => $qualifications, ':cv' => $cvpath, ':passport' => $passportPath);
     $query->execute($parameters);
 
     //debugging line
    // echo '[ PDO DEBUG ]: ' . Helper::debugPDO($sql, $parameters);  exit();
 }
 
-public function deleteapplicant($applicantid) {
-    $sql = "DELETE FROM applicant WHERE applicantid = :applicantid";
+public function deleteapplicant($applicantID) {
+    $sql = "DELETE FROM applicant WHERE applicantID = :applicantID";
     $query = $this->db->prepare($sql);
-    $parameters = array(':applicantid' => $applicantid);
+    $parameters = array(':applicantID' => $applicantID);
 
     $query->execute($parameters);
     //debugging line
    //echo '[ PDO DEBUG ]: ' . Helper::debugPDO($sql, $parameters);  exit();
 }
 
-public function UpdateApplicant($fname, $lname, $qualifications, $cvpath, $passportpath,
+public function UpdateApplicant($fname, $lname, $qualifications, $cvpath, $passportPath,
     $email, $applicantID) {
     $sql = "UPDATE Applicant SET fname = :fname, lname = :lname, qualifications = :qualifications,
-    cvpath = :cvpath, passportpath = :passportpath WHERE applicantID = :applicantID";
+    cvpath = :cvpath, passportPath = :passportPath WHERE applicantID = :applicantID";
     $query = $this->db->prepare($sql);
     $parameters = array(':fname' => $fname, ':lname' => $lname, ':qualifications' => $qualifications,
-        ':cvpath' => $cvpath, ':passportpath' => $passportpath, ':email' => $email, ':applicantID' => $applicantID);
+        ':cvpath' => $cvpath, ':passportPath' => $passportPath, ':email' => $email, ':applicantID' => $applicantID);
     $query->execute($parameters);
 }
 

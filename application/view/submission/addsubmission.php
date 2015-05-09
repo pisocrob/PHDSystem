@@ -32,7 +32,7 @@
 </label>
 
 <label>Applicant ID:
-<input type="text" name="applicantId" size="5" value="" placeholder="Enter Applicatn ID" required/>
+<input type="text" name="applicantID" size="5" value="" placeholder="Enter Applicatn ID" required/>
 </label>
 
 <p>
