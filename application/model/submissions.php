@@ -98,6 +98,24 @@ class Submissions
         //echo '[ PDO DEBUG ]: ' . Helper::debugPDO($sql, $parameters);  exit();
     }
 
+    public function checkInterest($userName){
+        $sql = "SELECT * FROM interest where supervisorID = (SELECT supervisorID FROM Supervisor WHERE userName = :userName)";
+        $query = $this->db->prepare($sql);
+        $parameters = array(':userName' => $userName);
+        $query->execute($parameters);
+
+        return $query->fetchAll();
+    }
+
+    public function removeInterest($submissionID, $userName){
+        $sql = "DELETE FROM interest WHERE supervisorID = (SELECT supervisorID from Supervisor WHERE userName = :userName) AND submissionID = :submissionID";
+        $query = $this->db->prepare($sql);
+        $parameters = array(':submissionID' => $submissionID, ':userName' => $userName);
+        $query->execute($parameters);
+
+        //echo '[ PDO DEBUG ]: ' . Helper::debugPDO($sql, $parameters);  exit();
+    }
+
     public function getEmailList($dicipline1, $dicipline2, $dicipline3){
         $sql = "SELECT email FROM Supervisor WHERE sDicipline1 = :dicipline1 OR sDicipline2 = :dicipline2
         OR sDicipline3 =:dicipline3";

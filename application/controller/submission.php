@@ -31,10 +31,17 @@ class Submission extends controller {
     $submissions = $this->submissions->getAllSubmissions($searchSubmission);
 
     if(isset($_SESSION['USER_TYPE'])){
+
+      $interests = $this->submissions->checkInterest($_SESSION['SESS_USER']);
       if($_SESSION['USER_TYPE'] == 'registrar'){
         require APP . 'view/_templates/header.php';
         require APP . 'view/submission/indexReg.php';
         require APP . 'view/submission/addsubmission.php';
+        require APP . 'view/_templates/footer.php';
+      }
+      else if($interests > 0){
+        require APP . 'view/_templates/header.php';
+        require APP . 'view/submission/indexSupInterested.php';
         require APP . 'view/_templates/footer.php';
       }
       else{
@@ -99,6 +106,13 @@ class Submission extends controller {
     public function markForInterest($submissionID){
       if(isset($submissionID)){
         $this->submissions->markForInterest($submissionID,$_SESSION['SESS_USER']);
+      }
+      header('location: ' . URL . 'submission/getAllSubmissions');
+    }
+
+    public function removeInterest($submissionID){
+      if(isset($submissionID)){
+        $this->submissions->removeInterest($submissionID, $_SESSION['SESS_USER']);
       }
       header('location: ' . URL . 'submission/getAllSubmissions');
     }

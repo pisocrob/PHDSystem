@@ -26,7 +26,7 @@ public function getSupervisor($supervisorID){
 }
 
 public function getAllSupervisors($searchSupervisor) {
-    $sql = "SELECT supervisorID, userName, staffNo, password, email, fName, lName, email, sDicipline1, sDicipline2, sDicipline3 FROM Supervisor WHERE lName LIKE (:searchSupervisor)";
+    $sql = "SELECT supervisorID, userName, staffNo, password, email, fName, lName, email, sDicipline1, sDicipline2, sDicipline3 FROM Supervisor WHERE lName LIKE :searchSupervisor";
     $query = $this->db->prepare($sql);
     $parameters = array(':searchSupervisor' => $searchSupervisor);
     $query->execute($parameters);
